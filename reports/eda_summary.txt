@@ -1,0 +1,143 @@
+
+========== SHAPE & DTYPES ==========
+Rows: 48,000  Columns: 14
+load_id                 object
+pickup                  object
+delivery                object
+pickup_lat             float64
+pickup_lon             float64
+delivery_lat           float64
+delivery_lon           float64
+distance               float64
+equipment               object
+weight                 float64
+date            datetime64[ns]
+market_index           float64
+quote_signal           float64
+posted_rate            float64
+dtype: object
+
+========== MISSING VALUES ==========
+weight          300
+market_index    374
+dtype: int64
+
+========== DUPLICATES ==========
+Duplicate load_id values: 0
+Fully duplicated rows: 0
+
+========== LOAD_ID FORMAT CHECK ==========
+load_id values not matching TR-###### pattern: 0
+
+========== NUMERIC SUMMARY ==========
+                count          mean  ...           75%          max
+distance      48000.0   1135.856654  ...   1645.525000   3439.80000
+weight        47700.0  31028.844004  ...  37018.000000  47500.00000
+market_index  47626.0      1.083387  ...      1.219590      1.46778
+quote_signal  48000.0      2.062468  ...      2.221685      3.61035
+posted_rate   48000.0   2373.980682  ...   3330.750000  25533.00000
+pickup_lat    48000.0     35.647545  ...     39.411040     44.30296
+pickup_lon    48000.0    -90.928964  ...    -83.285060    -69.50000
+delivery_lat  48000.0     35.641175  ...     39.411040     44.30296
+delivery_lon  48000.0    -90.857310  ...    -83.285060    -69.50000
+
+[9 rows x 8 columns]
+
+========== SANITY / INVALID VALUE CHECKS ==========
+distance <= 0: 0
+weight <= 0: 292
+posted_rate <= 0: 0
+pickup == delivery (same city): 0
+lat out of [-90,90] range: 0
+lon out of [-180,180] range: 0
+
+========== OUTLIERS (IQR method, 1.5x whisker) ==========
+distance: bounds=(-1092.29, 3288.21)  outliers=32  (0.07%)
+weight: bounds=(8973.00, 53845.00)  outliers=424  (0.88%)
+market_index: bounds=(0.54, 1.62)  outliers=0  (0.00%)
+quote_signal: bounds=(1.40, 2.72)  outliers=1956  (4.08%)
+posted_rate: bounds=(-1867.24, 6449.54)  outliers=260  (0.54%)
+
+========== DISTANCE vs HAVERSINE(lat/lon) CONSISTENCY ==========
+count    48000.000000
+mean       169.711739
+std        100.078173
+min          4.557545
+25%         90.746470
+50%        144.219518
+75%        234.173703
+max        581.690337
+Name: distance_diff, dtype: float64
+Rows where stated distance is > 2x or < 0.5x haversine distance (possible bad geo data): 22
+
+========== CATEGORICAL CARDINALITY ==========
+pickup: 64 unique values
+delivery: 64 unique values
+equipment: 3 unique values
+
+equipment value counts:
+equipment
+Dry Van    27202
+Reefer     12045
+Flatbed     8753
+Name: count, dtype: int64
+
+Top 10 pickup cities:
+pickup
+Oklahoma City    1242
+Lexington        1209
+Bakersfield      1193
+Fort Wayne       1170
+Hartford         1150
+Richmond         1140
+Nashville        1124
+Phoenix          1121
+Baton Rouge      1115
+Mobile           1094
+Name: count, dtype: int64
+
+Top 10 delivery cities:
+delivery
+Lexington        1197
+Fort Wayne       1176
+Baton Rouge      1167
+Bakersfield      1156
+Hartford         1143
+Oklahoma City    1140
+Richmond         1109
+Atlanta          1096
+Phoenix          1090
+Mobile           1089
+Name: count, dtype: int64
+
+========== DATE COVERAGE ==========
+Date range: 2025-01-01 -> 2025-10-31
+Distinct dates: 304
+Rows per day: min=115 max=198 mean=157.9
+
+========== RATE-PER-MILE ==========
+count    48000.000000
+mean         2.215347
+std          0.583887
+min          0.333709
+25%          1.986974
+50%          2.145348
+75%          2.342696
+max         14.125294
+Name: rate_per_mile, dtype: float64
+
+========== CORRELATION WITH posted_rate ==========
+posted_rate           1.000000
+distance              0.908519
+haversine_distance    0.908203
+weight                0.034840
+market_index          0.034165
+quote_signal         -0.039858
+Name: posted_rate, dtype: float64
+
+========== TARGET DISTRIBUTION (posted_rate) SKEW ==========
+Skew (raw): 1.902
+Skew (log1p): -0.489
+
+========== DONE ==========
+Plots saved to: D:\spotter\ml-engineer\reports\eda_plots

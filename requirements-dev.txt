@@ -1,0 +1,6 @@
+-r requirements.txt
+jupyter
+nbformat
+nbconvert
+ipykernel
+fpdf2
